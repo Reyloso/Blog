@@ -88,6 +88,7 @@ Ejecutar script que crea grupos con permisos y crea un usuario administrador
 
 # este script además crea algunas categorías de ejemplo,
 # en el menú categorías en las opciones del usuario se pueden crear categorías
+# las categorias solo pueden ser creadas por un usuario administrador
 
 python manage.py runscript config
 
