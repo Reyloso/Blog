@@ -49,6 +49,9 @@ pip install -r requirements.txt
 # para este ejemplo el archivo .env esta incluido en el repositorio
 # por los tanto no es necesario crearlo, solo configurarlo
 
+# como nota a tener en cuenta es que en el orm implementado en el proyecto se usan funciones
+# que solo funcionan para postgres, por lo tanto la base de datos a configurar debe ser postgres
+
 DEBUG=True
 SECRET_KEY=Tukey
 ALLOWED_HOSTS = ['*']
