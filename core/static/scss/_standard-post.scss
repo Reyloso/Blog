@@ -1,0 +1,51 @@
+
+/*------------------------------------------------- */
+/* =  standard post
+ *------------------------------------------------- */
+
+ .standard-post {
+ 	text-align: center;
+ 	&.left-align {
+ 		text-align: left;
+ 	}
+ 	.image-holder {
+ 		margin-bottom: 14px;
+ 		overflow: hidden;
+	 	&:hover {
+	 		img {
+				animation-name: imagemove;
+				animation-duration: 3s; 
+				animation-timing-function: ease-out; 
+				animation-delay: 0s;
+				animation-direction: alternate;
+				animation-iteration-count: infinite;
+				animation-fill-mode: none;
+				animation-play-state: running; 
+			}
+			@keyframes imagemove {
+				0% {
+					@include rotate-scale(0deg, 1);
+				}
+				100% {
+					@include rotate-scale(5deg, 1.1);
+				}
+			}
+	 	}
+ 	}
+ 	img {
+ 		width: 100%;
+ 		height: auto;
+		@include transition(0.6s);
+ 	}
+ 	h2 {
+ 		font-size: 18px;
+ 		line-height: 24px;
+ 		margin-bottom: 2px;
+ 		a {
+ 			color: $title-color;
+ 			&:hover {
+ 				color: $primary-color;
+ 			}
+ 		}
+ 	}
+ }

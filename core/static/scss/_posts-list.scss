@@ -1,0 +1,26 @@
+
+/*------------------------------------------------- */
+/* = posts list
+ *------------------------------------------------- */
+
+ ul.posts-list {
+ 	@extend .reset-elem;
+ 	> li {
+ 		display: block;
+ 		margin-bottom: 28px;
+ 		a.text-link {
+ 			margin-bottom: 0;
+ 		}
+ 		h2 {
+ 			font-size: 16px;
+ 			font-weight: 400;
+ 			line-height: 24px;
+ 			a {
+ 				color: $title-color;
+ 				&:hover {
+ 					color: $primary-color;
+ 				}
+ 			}
+ 		}
+ 	}
+ }

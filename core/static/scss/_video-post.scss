@@ -1,0 +1,77 @@
+
+/*------------------------------------------------- */
+/* =  video post
+ *------------------------------------------------- */
+
+ .video-post {
+ 	text-align: center;
+ 	.image-holder {
+ 		margin-bottom: 17px;
+ 		position: relative;
+		.hover-video {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			flex-direction: columns;
+			a {
+				span {
+					display: inline-block;
+					padding: 10px;
+					background: $primary-color-trans;
+					@include border-radius(50%);
+					animation-name: stretch;
+					animation-duration: 1s; 
+					animation-timing-function: ease-out; 
+					animation-delay: 0s;
+					animation-direction: alternate;
+					animation-iteration-count: infinite;
+					animation-fill-mode: none;
+					animation-play-state: running; 
+				}
+				@keyframes stretch {
+					0% {
+						padding: 10px;
+					}
+					100% {
+						padding: 0;
+					}
+				}
+				i {
+					display: inline-block;
+					width: 40px;
+					height: 40px;
+					background: $primary-color;
+					color: #fff;
+					font-size: 14px;
+					line-height: 40px;
+					padding-left: 2px;
+					@include border-radius(50%);
+				}
+				&:hover {
+					opacity: 0.8;
+				}
+			}
+		}
+ 	}
+ 	img {
+ 		width: 100%;
+ 		height: auto;
+ 	}
+ 	h2 {
+ 		font-size: 18px;
+ 		line-height: 24px;
+ 		margin-bottom: 4px;
+ 		a {
+ 			color: #fff;
+ 			&:hover {
+ 				color: $primary-color;
+ 			}
+ 		}
+ 	}
+ }

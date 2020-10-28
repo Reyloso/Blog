@@ -1,0 +1,85 @@
+{% load staticfiles %}
+<!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'images/LOGO.png' %}" style="height: 50px" alt="">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav m-auto">
+                    {% url 'home' as Url %}  
+                    <li class="drop-link">
+                        <a  {% if request.path == Url  %} class="active"  {% else  %}  class=""  {% endif %} href="{% url 'home' %}">Inicio </a>
+                    </li>
+                    <li class="drop-link">
+                        <a class="" href="{% url 'user:register_user' %}" >Registrarse </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- block search -->
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav m-auto">
+                    {% if user.is_authenticated %}
+                        <li class="drop-link">
+                            <a class="" href="{% url 'post:new_post' %}" >Nuevo Post</a>
+                        </li>
+                        <li class="drop-link">
+                            <a class="active">{{ request.user.username }} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            <ul class="dropdown">
+                                <li class="drop-link">
+                                    <a class="" href="{% url 'post:self_list_post' %}"> 
+                                        {% if user.type_user == 'Blogger' %} 
+                                            Mis post <i class="fa fa-book"></i>
+                                        {% else  %}
+                                            Todos los Post <i class="fa fa-book"></i>
+                                        {% endif %} </a>
+                                </li>
+                                {% if user.type_user == 'Administrador' %} 
+                                <li class="drop-link">
+                                    <a class="" href="{% url 'post:list_category' %}"> Categorias </a>
+                                </li>
+                                {% endif %}
+                                <li class="drop-link">
+                                    <a class="" href="{% url 'logout' %}">Salir </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="drop-link">
+                            <a class="" ></a>
+                        </li>
+                        
+                    {% elif user.is_anonymous %}
+                        <li class="drop-link">
+                            <a class="" href="{% url 'login' %}">Iniciar Sesion </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% block search %}
+                {% url 'post:self_list_post' as Url %}  
+                {% if request.path == Url %}
+                    <a class="search-button" href="#"><i class="fa fa-search"></i></a>
+                    <form action="/post/self" method="GET" class="form-search">
+                    
+                        <input id="search" name="search" value="{{ search }}" type="search" placeholder="Buscar:"/>
+                    </form>
+                    
+                {% else %}
+                    <a class="search-button" href="#"><i class="fa fa-search"></i></a>
+                    <form action="/" method="GET" class="form-search">
+                    
+                        <input id="search" name="search" value="{{ search }}" type="search" placeholder="Buscar:"/>
+                    </form>
+                {% endif %}
+            {% endblock %}
+
+        </div>
+    </nav>
+    <!-- navbar -->

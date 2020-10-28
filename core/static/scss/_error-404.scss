@@ -1,0 +1,25 @@
+
+/*------------------------------------------------- */
+/* =  error 404 section
+ *------------------------------------------------- */
+
+ section.error-section {
+ 	padding: 260px 0;
+ 	.error-box {
+ 		text-align: center;
+ 		h1 {
+ 			color: $primary-color;
+ 			font-size: 50px;
+ 			font-weight: 400;
+ 			margin-bottom: 20px;
+ 		}
+ 		h2 {
+ 			margin-bottom: 5px;
+ 		}
+ 		p {
+ 			font-size: 15px;
+ 			color: #666666;
+ 			margin-bottom: 25px;
+ 		}
+ 	}
+ }

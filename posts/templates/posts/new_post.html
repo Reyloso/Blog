@@ -1,0 +1,200 @@
+{% extends "core/base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+<!-- block body -->
+{% block body %}
+<!-- datepicker css and scripts -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
+
+<section class="blog-section">
+    <div class="container">
+        <div class="single-post no-sidebar">
+            <h1>{% if post %} Editar {% else %} Nuevo {% endif %} Post</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">Imagen de portada</label>
+                                <input type="file" class="form-control-file" id="exampleFormControlFile1"  value="{% if post %} {{ post.cover.url }} {% endif %}" id="cover" name="cover" accept="image/*">
+                              </div>
+                            <small class="form-control-feedback" style="color: red;">
+                                {% if form.cover.errors %}
+                                    {% for error in form.cover.errors %}
+                                        {{ error|escape }}
+                                    {% endfor %}
+                                {% endif %}
+                            </small> 
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="custom-file">
+                               <div class="container"> {% if post %}<img src="{{ post.cover.url }}" width="240"> {% endif %}</div>
+                               <label class="control-label" for="">Imagen Actual</label>
+                            </div>
+                        </div>
+                     </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Titulo</label>
+                            <input id="title" type="text" name="title" value="{% if post %} {{ post.title }} {% endif %}" class="form-control" placeholder="Escribe aqui un titulo para tu post">
+                            <small class="form-control-feedback" style="color: red;">
+                                {% if form.title.errors %}
+                                    {% for error in form.title.errors %}
+                                        {{ error|escape }}
+                                    {% endfor %}
+                                {% endif %}
+                            </small> 
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Subtitulo</label>
+                            <input id="description" type="text" name="description" value="{% if post %} {{ post.description }} {% endif %}" class="form-control" placeholder="Escribe aqui un subtitulo o descripción para tu post">
+                            <small class="form-control-feedback" style="color: red;">{% if form.description.errors %}
+                                {% for error in form.description.errors %}
+                                    {{ error|escape }}
+                            {% endfor %}
+                            {% endif %}</small> 
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Categorias</label>
+                            {{form.categories}}
+                        </div>
+                        <small class="form-control-feedback" style="color: red;">
+                            {% if form.categories.errors %}
+                                {% for error in form.categories.errors %}
+                                    {{ error|escape }}
+                                {% endfor %}
+                            {% endif %}
+                        </small> 
+                    </div> 
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Articulo</label>
+                            {{form.article}}
+                            <small class="form-control-feedback" style="color: red;">{% if form.article.errors %}
+                                {% for error in form.article.errors %}
+                                    {{ error|escape }}
+                            {% endfor %}
+                            {% endif %}</small> 
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Tags</label>
+                            <input type="text" class="form-control" value="{% for tag in post.tags.all %} {{ tag.name }}, {% endfor %}" data-role="tagsinput" id="tags" name="tags" placeholder="videojuegos, ciencia, deportes"/>
+                            <small class="form-control-feedback" style="color: red;">
+                                {% if form.tags.errors %}
+                                    {% for error in form.tags.errors %}
+                                        {{ error|escape }}
+                                    {% endfor %}
+                                {% endif %}
+                            </small> 
+                        </div>
+                    </div> 
+                    <div class="col-md-12">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                Visible Siempre
+                            </label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="status" id="status" value="True" {% if post.status %} checked {% endif %}>
+                                <label class="form-check-label" for="exampleRadios1">
+                                  Si
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="status" id="status" value="False" {% if post.status == False %} checked {% endif %}>
+                                <label class="form-check-label" for="exampleRadios2">
+                                  No
+                                </label>
+                              </div>
+                                <small class="form-control-feedback" style="color: red;">
+                                    {% if form.status.errors %}
+                                        {% for error in form.status.errors %}
+                                            {{ error|escape }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </small> 
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Fecha y hora de inicio del post</label>
+                            <div class="input-group date" id="post_start_date" data-target-input="nearest">
+                                {{ form.post_start_date }}
+                                <div class="input-group-append" data-target="#post_start_date" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                            <small class="form-control-feedback" style="color: red;">
+                                {% if form.post_start_date.errors %}
+                                    {% for error in form.post_start_date.errors %}
+                                        {{ error|escape }}
+                                    {% endfor %}
+                                {% endif %}
+                            </small> 
+                        </div>
+                    </div> 
+                    <div class="col-md-6">
+                        
+                        <div class="form-group">
+                            <label class="control-label">Fecha y hora de fin del post</label>
+                            <div class="input-group date" id="post_end_date" data-target-input="nearest">
+                                {{ form.post_end_date }}
+                                <div class="input-group-append" data-target="#post_end_date" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+
+                            <small class="form-control-feedback" style="color: red;">
+                                {% if form.post_end_date.errors %}
+                                    {% for error in form.post_end_date.errors %}
+                                        {{ error|escape }}
+                                    {% endfor %}
+                                {% endif %}
+                            </small> 
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <input style="background-color: #e74c3c;color: white; border-color: #e74c3c;" class="btn btn-success" type="submit" value="Guardar Post">
+                        <a style="border-color: #e74c3c;color:#e74c3c;;" onclick="goBack()" class="btn ">Atras</a>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</section>
+
+
+<!-- datetimepicker dependencias -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    // funcion regresar pagina anterior en el boton atras
+    function goBack() {
+        window.history.back();
+    }
+
+    // funcion que inicializa los datetimepickers
+    $(function () {
+        $("#post_start_date").datetimepicker({
+            format: 'DD/MM/YYYY HH:mm'
+        });
+        $("#post_end_date").datetimepicker({
+            format: 'DD/MM/YYYY HH:mm'
+        });
+    });
+
+   
+</script>
+{% endblock %}

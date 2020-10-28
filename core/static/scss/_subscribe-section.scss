@@ -1,0 +1,61 @@
+
+/*------------------------------------------------- */
+/* =  subscribe-sections
+ *------------------------------------------------- */
+
+ section.subscribe-section {
+ 	padding-bottom: 50px;
+ 	.subscribe-box {
+ 		padding: 40px 30px 10px;
+ 		text-align: center;
+ 		@include retina('../upload/banners/ban1.jpg', 2, cover, center center no-repeat);
+ 		.subscribe-title {
+ 			margin-bottom: 20px;
+ 			h2 {
+ 				font-size: 18px;
+ 				margin-bottom: 3px;
+ 			}
+ 			p {
+ 				color: #999999;
+ 				margin-bottom: 0;
+ 			}
+ 		}
+ 		form {
+	        margin: 0;
+	        input[type="text"] {
+	            width: 400px;
+	            max-width: 100%;
+	            padding: 13px 20px;
+	            background: #ffffff;
+	            border: 1px solid #eeeeee;
+	            @include border-radius(0);
+	            margin: 0 0 30px;
+	            color: #999999;
+	            font-size: 13px;
+	            font-family: $font-default;
+	            font-weight: 400;
+	            outline: none;
+	        }
+	        button {
+	            background: $primary-color;
+	            width: 170px;
+	            color: #ffffff;
+	            font-size: 13px;
+	            font-family: $font-default;
+	            font-weight: 400;
+	            text-transform: uppercase;
+	            border: 1px solid $primary-color;
+	            outline: none;
+	            @include border-radius(0px);
+	            padding: 13px 10px;
+	            margin: 0;
+	            margin-left: -6px;
+	            cursor: pointer;
+	            @include transition(0.2s);
+	            &:hover {
+		            opacity: 0.9;
+		        }
+	        }
+	    }
+ 	}
+ }

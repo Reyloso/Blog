@@ -1,0 +1,42 @@
+
+/*------------------------------------------------- */
+/* =  List posts with thumbnails
+ *------------------------------------------------- */
+
+ul.list-thumb-posts {
+	@extend .reset-elem;
+	> li {
+		display: flex;
+		padding-bottom: 24px;
+		margin-bottom: 24px;
+		border-bottom: 1px solid #ebebeb;
+		&:last-child {
+			border-bottom: none;
+			padding-bottom: 0;
+			margin-bottom: 0;
+		}
+		.image-holder {
+			margin-right: 15px;
+			img {
+				width: 60px;
+				height: auto;
+			}
+		}
+		.list-post-content {
+			margin-top: -9px;
+		}
+		h2 {
+			font-size: 16px;
+			font-family: $font-default;
+			font-weight: 400;
+			margin-bottom: 2px;
+			line-height: 21px;
+			a {
+				color: #333333;
+				&:hover {
+					color: $primary-color;
+				}
+			}
+		}
+	}
+}

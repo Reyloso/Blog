@@ -1,0 +1,78 @@
+{% extends "core/base.html" %}
+{% load staticfiles %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">  
+    
+{% endblock %}
+
+{% block body %}
+<section class="blog-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h6 class="m-0 font-weight-bold ">Listado de Categorías</h6>
+            </div>
+            <div class="col-6">
+                <a href="{% url 'post:new_category' %}" class="btn btn-secondary btn-circle" role="button"><i class="fa fa-plus"></i> Nuevo</a> 
+            </div>
+            <div class="col-12">
+                <!-- Card Body -->
+                <div class="card-body">
+                    {% if not obj %}
+                    <div class="alert alert-info">No hay categorías</div>
+                    {% else %}
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Estado</th>
+                            <th>F. Creado</th>
+                            <th>F. Modif.</th>
+                            <th class="all">Acciones</th>
+                        </thead>
+                        <tbody>
+                            {% for item in obj %}
+                            <tr>
+                                <td>{{ item.id }}</td>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.status|yesno:"Activo,Inactivo" }}</td>
+                                <td>{{ item.created_at|date:"d/m/Y H:i:s" }}</td>
+                                <td>{{ item.updated_at|date:"d/m/Y H:i:s" }}</td>
+                                <td>
+                                    <a href="{% url 'post:edit_category' item.id %}" class="btn btn-secondary btn-circle" role="button"><i class="fa fa-edit"></i></a> 
+                                    <a href="{% url 'post:delete_category' item.id %}" class="btn btn-danger btn-circle" role="button"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </div>
+            </div>    
+        </div>
+    </div>
+</section>
+<style>
+
+    footer {
+        display: none;
+      }
+</style>
+{% endblock %}
+
+{% block extraJs %}
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+ 
+<script type="text/javascript">
+  // Call the dataTables jQuery plugin
+  $(document).ready(function() {
+    $('.table').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
+        },
+    });
+  });
+</script>
+{% endblock %}

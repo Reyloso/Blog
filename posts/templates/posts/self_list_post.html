@@ -1,0 +1,128 @@
+{% extends "core/base.html" %}
+{% load humanize %}
+
+{% block search %}
+    <a class="search-button" href="#"><i class="fa fa-search"></i></a>
+    <form action="post/self" method="GET" class="form-search">
+    
+        <input id="search" name="search" value="{{ search }}" type="search" placeholder="Search:"/>
+    </form>
+{% endblock %}
+
+<!-- post list -->
+{% block postlist %}
+  {% if post %}
+    {% for obj in post %}
+    <div class="col-md-6">
+      
+      <div class="news-post article-post">
+        <div class="image-holder">
+          <img src="{{MEDIA_URL}}{{ obj.cover}}" alt="">
+        </div>
+        
+        <h2><a href="{% url 'post:detail_post' obj.slug %}">{{ obj.title }}.</a></h2>
+        <ul class="post-tags">
+          <li>{{ obj.created_at | naturaltime  }}</li>
+          <li><a>{{ obj.total_comments }} comentarios</a></li>
+          <li><a>{{ obj.total_likes }} Me gusta</a></li>
+          <li>{% if obj.status %} <a class="badge badge-primary" style="color: white;">Visible </a>
+            {% else %} <a class="badge badge-danger" style="color: white;"> No visible </a> {% endif %}</li>
+          <li>Por <a href="#">{{ obj.author.full_name }}</a></li>
+          <li>Fechas Inicio: <a href="#"> {% if obj.post_start_date == None %}  Sin Asignar  {% else %} {{ obj.post_start_date }} {% endif %}</a></li>
+          <li>Fechas Fin: <a href="#"> {% if obj.post_end_date == None %}  Sin Asignar  {% else %} {{ obj.post_end_date }} {% endif %}</a></li>
+        </ul>
+        <p>{{ obj.description|safe}}...</p>
+      </div>
+      <a class="badge badge-secondary" href="{% url 'post:post_edit' obj.id %}"> Editar</a>
+      <a class="badge badge-danger" href="{% url 'post:delete_post' obj.id %}">Eliminar</a>
+    </div>
+    {% endfor %}
+  {% else %}
+    {% if user.is_authenticated %}
+      <p>No hay articulos publicados, Comienza creando tu primer post</p>
+    {% endif %}
+  {% endif %}
+
+{% endblock %}
+<!-- end post list -->
+
+<!-- categories -->
+{% block categories %}
+  {% if categories %}
+    {% for category in categories %}
+      <li>
+        <a href="{% url 'post:self_list_post' %}?categories={{category.name}}">
+          {{category.name}}<span>{{category.num_post}}</span>
+        </a>
+      </li>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+<!-- end categories -->
+
+<!-- tags -->
+{% block tags %}
+  {% if tags %}
+    {% for tag in tags %}
+      <li>
+        <a href="{% url 'post:self_list_post' %}?tags={{tag.slug}}">
+          {{tag.name}} <span>{{tag.num_tags}}</span>
+        </a>
+      </li>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+<!-- end tags -->
+
+<!-- post_more_likes -->
+{% block post_more_likes %}
+  {% if tags %}
+    {% for post in post_more_likes %}
+      <li>
+        <h2><a href="{% url 'post:detail_post' post.slug %}">{{post.title}}</a></h2>
+        <ul class="post-tags">
+          <li>{{ post.created_at | naturaltime  }}</li>
+          <li><a href="#">{{ post.num_likes}} Me gusta</a></li>
+        </ul>
+      </li>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+<!-- end post_more_likes -->
+
+<!-- pagination -->
+{% block pagination %}
+  <nav aria-label="Page navigation example">
+    {% if is_paginated %}
+    <ul class="pagination-list">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{page_obj.previous_page_number}}"
+          >&laquo;</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#">&laquo;</a>
+      </li>
+      {% endif %}
+      {% for i in paginator.page_range %}
+        {% if page_obj.number == i %}
+      <li class="page-item"><a class="active">{{ i }}</a></li>
+      {% else %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+      </li>
+      {% endif %} {% endfor %} {% if page_obj.has_next %}
+      <li class="">
+        <a href="?page={{page_obj.next_page_number}}" class="">&raquo;</a>
+      </li>
+      {% else %}
+      <li class="">
+        <a class="">&raquo;</a>
+      </li>
+      {% endif %}
+    </ul>
+    {% endif %}
+  </nav>
+{% endblock %} 
+<!-- end pagination -->

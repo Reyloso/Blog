@@ -1,0 +1,149 @@
+{% load staticfiles %}
+<!doctype html>
+
+
+<html lang="es" class="no-js">
+<head>
+	<title>BlogDeveloper.com</title>
+
+	<meta charset="utf-8">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,500i,700,700i,900&display=swap" rel="stylesheet">
+	
+	<link rel="stylesheet" href="{% static 'css/mite-assets.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+	<!-- tags inputs css -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-typeahead.css">
+	
+	{% block extrastyle %}
+
+	{% endblock %}
+
+</head>
+<body>
+
+	<!-- Container -->
+	<div id="container">
+		 <!-- Header -->
+		 <header class="clearfix">
+			 <!-- navbar  -->
+			 {% include "core/navbar.html" %}
+		</header>
+		<!-- End Header -->
+
+		<!-- body section 
+			================================================== -->
+		{% block body %}
+		<section class="blog-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="blog-box grid-style">
+							<div class="row">
+								{% block postlist %}
+
+    							{% endblock %}
+							</div>
+								
+							<div class="pagination-box">
+								{% block pagination %}
+
+								{% endblock %}
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="sidebar">
+
+							<div class="widget social-widget">
+								<ul class="social-list">
+									<li>
+										<a href="#">
+											<i class="fa fa-book"></i>
+											Total Post
+											<span>{{cant_total_posts}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-comment-o"></i>
+											Total Comentarios
+											<span>{{cant_total_comments}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-heart-o"></i>
+											Total Me gusta
+											<span>{{cant_total_likes}}</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+
+							<div class="widget category-widget">
+								<h2>Categorias <i class="fa fa-tasks"></i></h2>
+								<ul class="category-list">
+									{% block categories %}
+
+    								{% endblock %}
+								</ul>
+							</div>
+
+							<div class="widget category-widget">
+								<h2>Tags <i class="fa fa-tag"></i></h2>
+								<ul class="category-list">
+									{% block tags %}
+
+    								{% endblock %}
+								</ul>
+							</div>
+
+							<div class="widget list-widget">
+								<h2>Post con mas me gusta <i class="fa fa-heart-o"></i></h2>
+								<ul class="list-posts">
+									{% block post_more_likes %}
+
+    								{% endblock %}
+								</ul>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		{% endblock %}
+		<!-- End body section -->
+
+		<!-- footer  -->
+		{% include "core/footer.html" %}
+		<!-- End footer -->
+
+	</div>
+	<!-- End Container -->
+
+	<div class="preloader">
+		<img alt="" src="{% static 'images/loader.gif' %}">
+	</div>
+	
+	<!-- import js -->
+	<script src="{% static 'js/mite-plugins.min.js' %}"></script>
+	<script src="{% static 'js/popper.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/script.js' %}"></script>
+	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{% static 'js/bootstrap-tagsinput.min.js' %}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-2JBCbWoMJPH+Uj7Wq5OLub8E5edWHlTM4ar/YJkZh3plwB2INhhOC3eDoqHm1Za/ZOSksrLlURLoyXVdfQXqwg==" crossorigin="anonymous"></script>
+{% block extraJs %}
+
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,327 @@
+
+/*------------------------------------------------- */
+/* =  sidebar
+*------------------------------------------------- */
+
+.sidebar {
+	padding-left: 20px;
+	.widget {
+		margin-bottom: 30px;
+		padding: 35px 40px;
+		background-color: #fafafa;
+		> h2 {
+			font-size: 18px;
+			padding-bottom: 18px;
+			margin-bottom: 20px;
+			line-height: 22px;
+			border-bottom: 1px solid #ebebeb;
+			a {
+				color: $third-color;
+				font-size: 12px;
+				font-family: $font-default;
+			}
+		}
+		&.social-widget {
+			background-color: transparent;
+			padding: 0;
+			> h2 {
+				padding-bottom: 0;
+				border-bottom: none;
+				margin-bottom: 18px;
+			}
+			ul.social-list {
+				@extend .reset-elem;
+				display: flex;
+				text-align: center;
+				li {
+					list-style: none;
+					padding-right: 1px;
+					flex: 1;
+					a {
+						background-color: #fafafa;
+						display: block;
+						padding: 25px 4px;
+						color: #333333;
+						font-size: 12px;
+						font-family: $font-default;
+						font-weight: 400;
+						line-height: 20px;
+						i {
+							display: block;
+							font-size: 20px;
+							margin-bottom: 4px;
+						}
+						span {
+							display: block;
+							color: #cccccc;
+							margin-bottom: 0;
+						}
+						&:hover {
+							background-color: $primary-color;
+							color: #fff;
+						}
+					}
+				}
+			}
+		}
+		&.features-widget {
+			padding: 0;
+			background-color: transparent;
+			.image-post {
+				.hover-post {
+					bottom: 0;
+					top: 0;
+					text-align: center;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+				}
+			}
+			.owl-controls {
+				margin: 0;
+			}
+			.owl-pagination {
+				position: absolute;
+				bottom: 30px;
+				width: 100%;
+			}
+			.owl-theme .owl-controls .owl-page span {
+				width: 14px;
+				height: 14px;
+				margin: 0 2px;
+				background: transparent;
+				border: 1px solid transparent;
+				position: relative;
+				&:before {
+					content: '';
+					position: absolute;
+					top: 4px;
+					left: 4px;
+					right: 4px;
+					bottom: 4px;
+					background-color: #fff;
+					@include border-radius(50%);
+				}
+			}
+			.owl-theme .owl-controls .owl-page.active span {
+				border: 1px solid #fff;
+			}
+			.owl-buttons {
+				display: none;
+			}
+		}
+		ul.list-posts {
+			@extend .reset-elem;
+			> li {
+				display: block;
+				padding-bottom: 20px;
+				margin-bottom: 18px;
+				border-bottom: 1px solid #ebebeb;
+				&:last-child {
+					border-bottom: none;
+					padding-bottom: 0;
+					margin-bottom: 0;
+				}
+				h2 {
+					font-size: 16px;
+					font-family: $font-default;
+					font-weight: 400;
+					margin-bottom: 6px;
+					line-height: 24px;
+					a {
+						color: #333333;
+						&:hover {
+							color: $primary-color;
+						}
+					}
+				}
+			}
+		}
+		&.instagram-widget {
+			padding-top: 0;
+			padding-bottom: 0;
+			background: transparent;
+			h2 {
+				padding-bottom: 0;
+				border-bottom: none;
+			}
+		}
+		ul.category-list {
+			@extend .reset-elem;
+			li {
+				display: block;
+				margin-bottom: 15px;
+				a {
+					display: block;
+					font-size: 16px;
+					font-family: $font-default;
+					font-weight: 400;
+					color: #666666;
+					line-height: 24px;
+					span {
+						color: $primary-color;
+						float: right;
+						font-size: 10px;
+					}
+					&:hover {
+						color: $primary-color;
+					}
+				}
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+		ul.insta-list {
+			@extend .reset-elem;
+			margin-bottom: 7px;
+			li {
+				display: inline-block;
+				margin-right: 10px;
+				margin-bottom: 13px;
+				a {
+					img {
+						max-width: 70px;
+						height: auto;
+					}
+					&:hover {
+						opacity: 0.7;
+					}
+				}
+			}
+		}
+	}
+
+	.subscribe-widget {
+		p {
+			font-size: 13px;
+			color: $third-color;
+			margin-bottom: 20px;
+		}
+		form {
+			input[type="text"] {
+				width: 100%;
+				display: block;
+				border: none;
+				background-color: #fafafa;
+				padding: 12px 20px;
+				font-size: 13px;
+				color: $third-color;
+				margin-bottom: 20px;
+				outline: none;
+			}
+			input[type="submit"] {
+				width: 100%;
+				display: block;
+				outline: none;
+				color: $primary-color;
+				font-size: 13px;
+				font-family: $font-default;
+				padding: 13px 50px;
+				background: #fff;
+				font-weight: 400;
+				border: 1px solid #ebebeb;
+				@include transition(0.2s);
+				text-transform: uppercase;
+				margin: 0;
+				&:hover {
+					background: $primary-color;
+					border-color: $primary-color;
+					color: #fff;
+				}
+			}
+		}
+	}
+	.subscribe-widget2 {
+		@include retina('../upload/banners/ban4.jpg', 2, cover, center center no-repeat);
+		h2 {
+			padding-bottom: 0;
+			border-bottom: none;
+			margin-bottom: 5px;
+		}
+		p {
+			font-size: 13px;
+			color: $third-color;
+			margin-bottom: 20px;
+		}
+		input[type="text"] {
+			width: 100%;
+			display: block;
+			border: 1px solid #eeeeee;
+			background-color: #fff;
+			padding: 12px 20px;
+			font-size: 13px;
+			color: $third-color;
+			margin-bottom: 20px;
+			outline: none;
+		}
+		input[type="submit"] {
+			width: 100%;
+			display: block;
+			outline: none;
+			color: $primary-color;
+			font-size: 13px;
+			font-family: $font-default;
+			cursor: pointer;
+			padding: 13px 50px;
+			background: #fff;
+			font-weight: 400;
+			border: 1px solid #ebebeb;
+			@include transition(0.2s);
+			text-transform: uppercase;
+			margin: 0;
+			&:hover {
+				background: $primary-color;
+				border-color: $primary-color;
+				color: #fff;
+			}
+		}
+	}
+	.popular-video-widget {
+		.owl-controls {
+			margin-top: 0px;
+			z-index: 999;
+		}
+		.owl-pagination {
+			margin-top: 30px;
+		}
+		.owl-theme .owl-controls .owl-page span {
+			width: 14px;
+			height: 14px;
+			margin: 0 2px;
+			background: transparent;
+			border: 1px solid transparent;
+			position: relative;
+			&:before {
+				content: '';
+				position: absolute;
+				top: 4px;
+				left: 4px;
+				right: 4px;
+				bottom: 4px;
+				background-color: #cccccc;
+				@include border-radius(50%);
+			}
+		}
+		.owl-theme .owl-controls .owl-page.active span {
+			border: 1px solid #cdcdcd;
+			&:before {
+				background-color: #ffffff;
+			}
+		}
+		.owl-buttons {
+			display: none;
+		}
+		.owl-theme .owl-controls .owl-page.active span:before {
+			background-color: #cccccc;
+		}
+		.video-post {
+			h2 a {
+				color: $title-color;
+				&:hover {
+					color: $primary-color;
+				}
+			}
+		}
+	}
+}

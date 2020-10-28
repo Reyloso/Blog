@@ -1,0 +1,43 @@
+
+
+/*------------------------------------------------- */
+/* =  Footer */
+/*------------------------------------------------- */
+
+footer {
+	padding: 50px 0;
+	background-color: #fafafa;
+	text-align: center;
+	h1 {
+		font-size: 20px;
+		font-weight: 400;
+		text-transform: uppercase;
+		margin-bottom: 0px;
+	}
+	p {
+		color: #999999;
+		font-size: 14px;
+		margin-bottom: 10px;
+	}
+	ul.social-list {
+		@extend .reset-elem;
+		li {
+			display: inline-block;
+			margin: 0 8px;
+			a {
+				color: #666666;
+				font-size: 16px;
+				&:hover {
+					color: $primary-color;
+				}
+			}
+		}
+	}
+	&.dark-style {
+		background-color: #333333;
+		h1 {
+			color: #fff;
+		}
+	}
+}
+

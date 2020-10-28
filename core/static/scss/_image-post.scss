@@ -1,0 +1,70 @@
+
+/*------------------------------------------------- */
+/* =  image post
+ *------------------------------------------------- */
+
+ .image-post {
+ 	position: relative;
+ 	overflow: hidden;
+ 	img {
+ 		width: 100%;
+ 		height: auto;
+		@include transition(0.6s);
+ 	}
+ 	&:hover {
+ 		img {
+			animation-name: imagemove;
+			animation-duration: 3s; 
+			animation-timing-function: ease-out; 
+			animation-delay: 0s;
+			animation-direction: alternate;
+			animation-iteration-count: infinite;
+			animation-fill-mode: none;
+			animation-play-state: running; 
+		}
+		@keyframes imagemove {
+			0% {
+				@include rotate-scale(0deg, 1);
+			}
+			100% {
+				@include rotate-scale(5deg, 1.1);
+			}
+		}
+ 	}
+ 	.hover-post {
+ 		position: absolute;
+ 		padding: 30px 26px;
+ 		bottom: 0;
+ 		left: 0;
+ 		right: 0;
+ 		a.category-link {
+ 			margin-bottom: 8px;
+ 		}
+ 		h2 {
+ 			margin-bottom: 5px;
+ 			a {
+ 				color: #fff;
+ 			}
+ 		}
+ 		ul.post-tags li {
+ 			color: #fff;
+ 			a {
+ 				color: #fff;
+ 				&:hover {
+ 					color: $primary-color;
+ 				}
+ 			}
+ 			&:before {
+ 				color: #fff;
+ 			}
+ 		}
+ 		p {
+ 			color: #fff;
+ 			margin-top: 10px;
+ 			margin-bottom: 0;
+ 		}
+ 		&.overlay-bg {
+ 			background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+ 		}
+ 	}
+ }

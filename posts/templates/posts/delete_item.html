@@ -1,0 +1,26 @@
+{% extends "core/base.html" %}
+
+{% block body %}
+<section class="blog-section">
+  <div class="container">
+    <div class="single-post no-sidebar">
+      <form method="POST" class="form-inline">
+        {% csrf_token %}
+        
+          <div class="single-post no-sidebar">
+              <div class="text-xs font-weight-bold  text-uppercase mb-1">¿Eliminar {{ Nombre }}: {% if obj.title %} {{ obj.title }} {% elif obj.comment %} {{ obj.comment }} {% else %}  {{ obj.name }} {% endif %} ?</div>
+              <button type="submit" class="btn btn-danger"> Eliminar</button>
+              <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-success">Cancelar</a>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+</section>
+<style>
+
+footer {
+    display: none;
+  }
+</style>
+{% endblock %}

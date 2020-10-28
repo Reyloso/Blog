@@ -1,0 +1,79 @@
+{% extends "core/base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+<!-- block body -->
+{% block body %}
+
+<section class="blog-section">
+    <div class="container">
+        <div class="single-post no-sidebar">
+            <h1>{% if obj %} Editar {% else %} Nueva {% endif %} Categoria</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Nombre</label>
+                            <input id="name" type="text" name="name" value="{% if obj %} {{ obj.name }} {% endif %}" class="form-control" placeholder="Escriba un nombre para la categoria">
+                            <small class="form-control-feedback" style="color: red;">
+                                {% if form.name.errors %}
+                                    {% for error in form.name.errors %}
+                                        {{ error|escape }}
+                                    {% endfor %}
+                                {% endif %}
+                            </small> 
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                Estado
+                            </label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="status" id="status" value="True" {% if obj.status %} checked {% endif %}>
+                                <label class="form-check-label" for="exampleRadios1">
+                                  Activa
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="status" id="status" value="False" {% if obj.status == False %} checked {% endif %}>
+                                <label class="form-check-label" for="exampleRadios2">
+                                  Inactiva
+                                </label>
+                              </div>
+                                <small class="form-control-feedback" style="color: red;">
+                                    {% if form.status.errors %}
+                                        {% for error in form.status.errors %}
+                                            {{ error|escape }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </small> 
+                        </div>
+                    </div>    
+                    <div class="col-md-12"  style="margin-top: 15px;">
+                        <div class="form-group">
+                            <input style="background-color: #e74c3c;color: white; border-color: #e74c3c;" class="btn btn-success" type="submit" value="Guardar Categoria">
+                            <a style="border-color: #e74c3c;color:#e74c3c;;" onclick="goBack()" class="btn ">Atras</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</section>
+<style>
+    footer {
+        display: none;
+      }
+</style>
+{% endblock %}
+
+{% block extraJs %}
+<script type="text/javascript">
+    // funcion regresar pagina anterior en el boton atras
+    function goBack() {
+        window.history.back();
+    }   
+</script>
+{% endblock %}

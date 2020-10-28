@@ -1,0 +1,186 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load humanize %}
+<!-- block body -->
+{% block body %}
+
+<section class="blog-section">
+    <div class="container">
+        <div class="single-post no-sidebar">
+            <div class="title-single-post">
+                {% for category in categories %}
+                <a class="text-link" href="/?categories={{category.name}}"> {{category.name}} </a>
+                {% endfor %}
+                
+                <!-- <a class="text-link" href="#">Lifestyle,</a>
+                <a class="text-link" href="#">Lifestyle,</a> -->
+                <h1>{{post.title}}.</h1>
+                <ul class="post-tags">
+                    <li>{{ post.created_at | naturaltime  }}</li>
+                </ul>
+            </div>
+            <div class="single-post-content">
+                <img src="{{ MEDIA_URL }}{{ post.cover }}" alt="">
+                <div class="post-content">
+                   
+                    <div class="post-content-text">
+                        {{ post.article | safe }}
+                        <div class="share-tags-box">
+                            <!-- tags -->
+                            <ul class="tags">
+                                {% for tag in tags %}
+                                <li><a href="/?tags={{tag.slug}}">{{tag.name}}</a></li>
+                                {% endfor %}
+                            </ul>
+                            <ul class="shares-likes">
+                                {% if user_current_like %}
+                                <li><a id="like" style="cursor:pointer;" class="likes selected-like"> <i id="icon-liked" class="fa fa-heart-o selected-like"></i> Me gusta {{ post.total_likes }}</a></li>
+                                {% else %}
+                                <li><a id="like" style="cursor:pointer;" class="likes"><i class="fa fa-heart-o"></i>Me gusta  {{ post.total_likes }}</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>	
+                </div>
+                <div class="related-box">
+                    <h2>Post con mas Me gusta</h2>
+                    <div class="row">
+                        {% for post in post_more_likes %}
+                        <div class="col-lg-4 col-md-4">
+                            <div class="news-post standard-post text-left">
+                                <div class="image-holder">
+                                    <a href="{% url 'post:detail_post' post.slug %}"><img src="{{ post.cover.url }}" alt=""></a>
+                                </div>
+                                <h2><a href="{% url 'post:detail_post' post.slug %}">{{ post.title }}.</a></h2>
+                                <ul class="post-tags">
+                                    <li>por <a href="#">{{ post.author.full_name }}</a></li>
+                                    <li>{{ post.created_at | naturaltime  }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="advertise-box">
+                <a href="#"><img src="upload/banners/ban3.jpg" alt=""></a>
+            </div> -->
+
+            <!-- comments -->
+            <div class="comments">
+                <h2 class="comments-title">
+                   Comentarios ({{ post.total_comments }})
+                </h2>
+                <ul class="comments__list">
+                    <li class="comments__list-item">
+                        {% for comment in comments %}
+                            <img class="comments__list-item-image" src="{{ comment.author.profile_photo.url }}" alt="">
+                            <div class="comments__list-item-content">
+                                <h3 class="comments__list-item-title">
+                                    <strong>{{ comment.author.full_name }}</strong>
+                                </h3>
+                                {% if user.id == comment.author.id or user.type_user == 'Administrador'  %} <a class="badge badge-danger" href="{% url 'post:delete_comment' comment.id %}">Eliminar</a> {% endif %}
+                                <span class="comments__list-item-date">
+                                    {{ comment.created_at | naturaltime  }}
+                                </span>
+                                
+                                <p class="comments__list-item-description">
+                                    {{ comment.comment | safe }}
+                                </p>
+                            </div>
+                            <hr/>
+                        {% endfor %}
+                        
+                    </li>
+                </ul>
+            </div>
+            <!-- end comments -->
+
+            <!-- Contact form module -->
+           
+                {% if user.is_authenticated %}
+                <form method="POST" class="contact-form" >
+                    {% csrf_token %}
+                    <h2 class="contact-form__title"> Escribe un comentario</h2>
+                        <div class="form-group">
+                            <textarea class="contact-form__textarea" value="{{ comment }}" name="comment" id="comment" placeholder="Escribe un comentario"></textarea>
+                            <!-- {{ form.comment }} -->
+                            <small class="form-control-feedback" style="color: red;" style="color: red;"
+                            >{% if form.comment.errors %}
+                                {% for error in form.comment.errors %}
+                                    {{ error|escape }}
+                              {% endfor %}
+                            {% endif %}</small> 
+                        </div>
+                    <button class="contact-form__submit" type="submit" > Enviar Comentario </button>
+                </form>
+                {% elif user.is_anonymous %}
+                    <h2 class="contact-form__title">
+                        Inicia sesion para escribir un comentario      
+                    </h2>
+                    <a class="btn-login" id="login-btn" >Iniciar sesion</a>
+                {% endif %}
+               
+           
+            <!-- End Contact form module -->
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+<!-- end block body -->
+
+{% block extraJs %}
+<!-- import axios  -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script>
+    // axios call para boton de me gusta
+    $('#like').click(function(){
+        console.log("si escucha")
+        axios.post('/post/like/action/' + "{{post.id}}", 
+            null, 
+            { headers: {"X-CSRFToken": "{{ csrf_token }}",
+             'Content-Type': 'application/json'}
+            }
+        ).then(result => {
+            console.log(result.data);
+            if (result.data.liked ==null){
+                Swal.fire({
+                title: 'Iniciar Sesión',
+                text: "Debes iniciar sesión para poder dar me gusta a este post.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iniciar Sesión'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/login?next='+ window.location.href
+                    }
+                })
+            }else if (result.data.liked==true){
+                $('#like, #icon-liked').addClass('selected-like')
+                $('#like').html("<i id='icon-liked' class='fa fa-heart-o selected-like'></i> Me gusta "+ result.data.num_like_post)
+            }else{
+                $('#like, #icon-liked').removeClass('selected-like')
+                $('#like').html("<i id='icon-liked' class='fa fa-heart-o'></i> Me gusta "+ result.data.num_like_post)
+                // $('#like').text(result.data.num_like_post)
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+            
+    })
+
+    $('#login-btn').click(function(){
+        window.location.href = '/login?next='+ window.location.href
+    })
+    </script>
+
+{% endblock %}

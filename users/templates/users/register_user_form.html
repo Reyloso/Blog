@@ -1,0 +1,205 @@
+{% load static %}
+<style>
+    body{
+	 background: url('{% static '/images/login-wallpaper.jpg' %}') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family:'HelveticaNeue','Arial', sans-serif;
+
+}
+a{color:#58bff6;text-decoration: none;}
+a:hover{color:#aaa; }
+.pull-right{float: right;}
+.pull-left{float: left;}
+.clear-fix{clear:both;}
+div.logo{text-align: center; margin: 20px 20px 30px 20px; fill: #566375;}
+div.logo svg{
+	width:180px;
+	height:100px;
+}
+.logo-active{fill: #44aacc !important;}
+#formWrapper{
+	background: rgba(0,0,0,.2);
+	width:100%;
+	height:100%;
+	position: absolute;
+	top:0;
+	left:0;
+	transition:all .3s ease;}
+.darken-bg{background: rgba(0,0,0,.5) !important; transition:all .3s ease;}
+
+div#form{
+	position: absolute;
+	width:360px;
+	height:auto;
+	background-color: #fff;
+	margin:auto;
+	border-radius: 5px;
+	padding:31px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+div.form-item{position: relative; display: block; margin-bottom: 20px;}
+ input{transition: all .2s ease;}
+ input.form-style{
+     color: #8a8a8a;
+     display: block;
+     width: 100%;
+     height: 36px;
+     padding: 5px 5%;
+     border: 1px solid #ccc;
+     -moz-border-radius: 27px;
+     -webkit-border-radius: 27px;
+     border-radius: 27px;
+     -moz-background-clip: padding;
+     -webkit-background-clip: padding-box;
+     background-clip: padding-box;
+     background-color: #fff;
+     font-family: 'HelveticaNeue','Arial', sans-serif;
+     font-size: 105%;
+     letter-spacing: .8px;
+}
+div.form-item .form-style:focus{outline: none; border:1px solid white; color:#black; }
+div.form-item p.formLabel {
+    position: absolute;
+    left: 26px;
+    top: -6px;
+    transition: all .4s ease;
+    color: #bbb;
+}
+.formTop{top:-22px !important; left:26px; background-color: #fff; padding:0 5px; font-size: 14px; color:#e74c3c !important;}
+.formStatus{color:#8a8a8a !important;}
+input[type="submit"].login{
+	width: 10rem;
+	height: 2.5rem;
+	-moz-border-radius: 19px;
+	-webkit-border-radius: 19px;
+	border-radius: 19px;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	background-color: #e74c3c;
+	border:none;
+	color: #fff;
+	font-weight: bold;
+}
+input[type="submit"].login:hover{background-color: #fff; border:1px solid #e74c3c; color:#e74c3c; cursor:pointer;}
+input[type="submit"].login:focus{outline: none;}
+
+</style>
+<script src="https://code.jquery.com/jquery-2.1.0.min.js" ></script>
+<body>
+<div id="formWrapper">
+
+<div id="form">
+    <div class="logo">
+        <img src="{% static 'images/LOGO.png' %}" style="height: 114px" alt="">
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <!-- <div class="form-item">
+			<p class="">Foto de perfil</p>
+        </div> -->
+        <div class="form-item">
+            <input type="file"  name="profile_photo" id="profile_photo" value="{{profile_photo}}" class="form-style" accept="image/*" >
+            <small class="form-control-feedback" style="color: red;">
+                {% if form.profile_photo.errors %}
+                    {% for error in form.profile_photo.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
+            </small> 
+        </div>
+        <div class="form-item">
+			<p class="formLabel">Nombres</p>
+            <input type="text" name="name" id="id_name" value="{{name}}" class="form-style" autocomplete="on"/>
+            <small class="form-control-feedback" style="color: red;">
+                {% if form.name.errors %}
+                    {% for error in form.name.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
+            </small> 
+		</div>
+        <div class="form-item">
+			<p class="formLabel">Apellidos</p>
+            <input type="text" name="surnames" id="surnames" value="{{surnames}}" class="form-style" autocomplete="on"/>
+            <small class="form-control-feedback" style="color: red;">
+                {% if form.surnames.errors %}
+                    {% for error in form.surnames.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
+            </small> 
+		</div>
+        <div class="form-item">
+			<p class="formLabel">Usuario</p>
+            <input type="text" name="username" id="username" value="{{username}}" class="form-style" autocomplete="on"/>
+            <small class="form-control-feedback" style="color: red;">
+                {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
+            </small>
+		</div>
+		<div class="form-item">
+			<p class="formLabel">Contraseña</p>
+            <input type="password" name="password1" id="password1" value="{{password1}}" class="form-style" />
+            <small class="form-control-feedback" style="color: red;">
+                {% if form.password1.errors %}
+                    {% for error in form.password1.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
+            </small>
+		</div>
+		<div class="form-item">
+			<p class="formLabel">Confirmar Contraseña</p>
+            <input type="password" name="password2" id="password2" value="{{password2}}" class="form-style" />
+            <small class="form-control-feedback" style="color: red;">
+                {% if form.password2.errors %}
+                    {% for error in form.password2.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
+            </small>
+		</div>
+		<div class="form-item" align="center">
+            <input type="submit" class="login" value="Registrarte" style="margin-top: 1.5rem">
+        </div>
+		<div class="form-item" align="center">
+            <a type="submit" href="{% url 'login' %}" class="login"  style="margin-top: 1.5rem">Ir a Login</a>
+        </div>
+        <div class="form-item" align="center">
+            <a href="{% url 'home' %}"  style="cursor:pointer;"><strong style="cursor:pointer;"> Volver a Inicio </strong></a>
+        </div>
+    </form>
+</div>
+</div>
+<script>
+    $(document).ready(function(){
+	var formInputs = $('input[type="text"],input[type="password"]');
+	formInputs.focus(function() {
+       $(this).parent().children('p.formLabel').addClass('formTop');
+       $('div#formWrapper').addClass('darken-bg');
+       $('div.logo').addClass('logo-active');
+	});
+	formInputs.focusout(function() {
+		if ($.trim($(this).val()).length == 0){
+		$(this).parent().children('p.formLabel').removeClass('formTop');
+		}
+		$('div#formWrapper').removeClass('darken-bg');
+		$('div.logo').removeClass('logo-active');
+	});
+	$('p.formLabel').click(function(){
+		 $(this).parent().children('.form-style').focus();
+	});
+});
+</script>
+</body>
+</html>
+

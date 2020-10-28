@@ -1,0 +1,60 @@
+
+/*------------------------------------------------- */
+/* = About us
+ *------------------------------------------------- */
+
+section.about-section {
+	padding: 50px 0 20px;
+	.about-box,
+	.team-box {
+		span {
+			color: $primary-color;
+			font-size: 10px;
+			font-weight: 400;
+			font-family: $font-default;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+		}
+	}
+	.about-post {
+		margin-bottom: 60px;
+		padding-right: 10px;
+		h2 {
+			margin-bottom: 20px;
+		}
+		p {
+			margin-bottom: 20px;
+		}
+	}
+	.team-post {
+		margin-bottom: 30px;
+		text-align: center;
+		img {
+			width: 100%;
+			height: auto;
+			margin-bottom: 15px;
+		}
+		h2 {
+			font-size: 18px;
+			line-height: 24px;
+			margin-bottom: 15px;
+		}
+		p {
+			margin-bottom: 20px;
+		}
+		ul.team-social {
+			@extend .reset-elem;
+			li {
+				display: inline-block;
+				margin: 0 8px;
+				a {
+					color: #666666;
+					font-size: 16px;
+					&:hover {
+						color: $primary-color;
+					}
+				}
+			}
+		}
+	}
+}

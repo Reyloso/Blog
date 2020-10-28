@@ -1,0 +1,41 @@
+{% extends "core/base.html" %}
+{% block body %}
+
+<section class="blog-section">
+    <div class="container" style="justify-content: center;display: flex;">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="col-12"> 
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        Usuario: <mark>{{ user.username }}  {{user.get_full_name }}</mark> 
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="col-12">
+                        No tiene suficientes privilegios  para cargar opción solicitada.
+                        <br>
+                    
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col">
+                                <a href="{% url 'home' %}" class="btn btn-success"><span class="fa fa-home"></span> Ir a Inicio</a>
+                                <a href="{% url 'login' %}" class="btn btn-success"><span class="fa fa-user"></span> Ingresar con otro Usuario</a>
+                            </div>
+                        </div>
+                        <br>
+                    
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</section>
+<style>
+    footer {
+        display: none;
+    }
+</style>
+{% endblock %}
